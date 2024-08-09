@@ -117,3 +117,130 @@ select Gender,City ,SUM(Salary) as Total_salary,COUNT(ID) as [Total Employees]
 from tblEmployee 
 group by Gender,City
 Having sum(salary) > 5000
+
+
+
+
+--part -13
+--joins
+
+select * from tblEmployee
+alter table tblEmployee drop column city
+alter table tblEmployee add  DepartmentId int 
+
+create table tblDepartment
+(
+Id int,
+DepartmentName varchar(30),
+Location varchar(30),
+DepartmentHead varchar(30)
+)
+
+select * from tblDepartment
+select * from tblEmployee
+insert into tblDepartment (Id,DepartmentName,Location,DepartmentHead) 
+values (1,'IT','London','Rick'),
+(2,'Payroll','Delhi','Ron'),
+(3,'HR','New work','Christie'),
+(4,'Other Department','Sydney','Cindrella')
+ 
+ delete from  tblDepartment
+ where id=1
+
+
+
+ Select Name,Gender,Salary,DepartmentName
+ from tblEmployee
+ INNER JOIN tblDepartment
+ on tblEmployee.DepartmentId = tblDepartment.Id
+
+ 
+ Select Name,Gender,Salary,DepartmentName
+ from tblEmployee
+ LEFT OUTER JOIN tblDepartment
+ on tblEmployee.Departmentid = tblDepartment.Id
+
+ 
+ Select Name,Gender,Salary,DepartmentName
+ from tblEmployee
+ RIGHT OUTER JOIN tblDepartment
+ on tblEmployee.Departmentid = tblDepartment.Id
+
+ 
+ Select Name,Gender,Salary,DepartmentName
+ from tblEmployee
+ CROSS JOIN tblDepartment
+  
+
+ Select Name,Gender,Salary,DepartmentName
+ from tblEmployee
+ FULL OUTER JOIN tblDepartment
+ on tblEmployee.Departmentid = tblDepartment.Id
+
+
+
+update tblEmployee 
+set  Departmentid=1
+where id=8
+
+
+
+--part 14
+--intelligent joins or advance joins
+--retrieving non matching rows from left table 
+Select Name,Gender,Salary,DepartmentName
+from tblEmployee E
+LEFT OUTER JOIN tblDepartment  D
+on E.Departmentid = D.Id
+where D.ID IS NULL
+
+-- retrieving non matching rows from right table 
+Select             Name,Gender,Salary,DepartmentName
+from               tblEmployee E
+RIGHT OUTER JOIN   tblDepartment  D
+on                 E.Departmentid = D.Id
+where			   E.DepartmentId IS NULL
+
+
+--retrieving non matching rows from both the tables
+Select Name,Gender,Salary,DepartmentName
+from tblEmployee E
+FULL OUTER JOIN tblDepartment  D
+on E.Departmentid = D.Id
+where D.ID IS NULL
+or E.DepartmentId IS NULL
+
+--part 15
+--self join
+select  * from tblEmployees
+select  * from tblEmployees
+
+alter table tblEmployees RENAME column ManaqerId to ManagerID
+insert into tblEmployees values(5,'Sam',1)
+
+Select          E.Name as Employee, M.Name as Manager
+from			tblEmployees E
+LEFT OUTER JOIN tblEmployees M
+on				E.ManagerId = M.EmployeeId
+
+Select          E.Name as Employee, M.Name as Manager
+from			tblEmployees E
+RIGHT OUTER JOIN tblEmployees M
+on				E.ManagerId = M.EmployeeId
+
+Select          E.Name as Employee, M.Name as Manager
+from			tblEmployees E
+FULL OUTER JOIN tblEmployees M
+on				E.ManagerId = M.EmployeeId
+
+Select          E.Name as Employee, M.Name as Manager
+from			tblEmployees E
+INNER JOIN      tblEmployees M
+on				E.ManagerId = M.EmployeeId  
+
+Select          E.Name as Employee, M.Name as Manager
+from			tblEmployees E
+CROSS JOIN tblEmployees M
+
+
+
